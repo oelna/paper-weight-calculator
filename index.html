@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Calculate paper weight</title>
+
+	<style>
+		* { box-sizing: border-box; }
+		html {
+			font: 200%/1.4 system-ui, sans-serif;
+		}
+
+		body {
+			margin: 0.5rem;
+		}
+
+		p { margin: 0; }
+
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			border: 0px solid #000;
+		}
+
+		form input {
+			font-size: 1rem;
+			border: 1px solid #000;
+			padding: 0.2em;
+		}
+
+		form label,
+		form > p {
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		form label > input,
+		form > p span:first-child {
+			flex: 1;
+		}
+
+		form label > span,
+		form > p span:last-child {
+			flex-basis: 20ch;
+		}
+
+		form button {
+			font-size: 1rem;
+			background: black;
+			color: white;
+			border: 0;
+			padding: 0.2em 0.6em;
+		}
+	</style>
+</head>
+<body>
+
+	<form>
+		<label><input type="numeric" id="weight" placeholder="weight per sheet in grams" /> <span>Paper weight (g/m<sup>2</sup>)</span></label>
+		<label><input type="numeric" id="width" placeholder="width" /> <span>Width (mm)</span></label>
+		<label><input type="numeric" id="height" placeholder="height" /> <span>Height (mm)</span></label>
+		<label><input type="numeric" id="amount" placeholder="total pages" /> <span>Pages amount</span></label>
+
+		<p><span>Result: <span id="result"></span></span><span><button>Calculate</button></span></p>
+	</form>
+
+	<script type="module">
+		function calculate (event) {
+			event.preventDefault();
+
+			const weight = document.querySelector('#weight');
+			const width = document.querySelector('#width');
+			const height = document.querySelector('#height');
+			const amount = document.querySelector('#amount');
+			const result = document.querySelector('#result');
+
+			const output = parseInt(height.value)/100 * parseInt(width.value)/100 * parseInt(weight.value)/100 * parseInt(amount.value);
+
+			result.textContent = (Math.floor(output) + 'g');
+		}
+
+		document.querySelector('button').addEventListener('click', calculate);
+	</script>
+</body>
+</html>
